@@ -46,3 +46,13 @@ function findBookIndex(bookId) {
     }
     return -1;
 }
+
+// hilangkan todo nya dari list yang akan dilakukan
+function findBook(bookId) {
+    for (const bookItem of books) {
+      if (bookItem.id === bookId) {
+        return bookItem;
+      }
+    }
+    return null;
+}

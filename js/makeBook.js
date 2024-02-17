@@ -1,9 +1,9 @@
 // function make books
 function makeBooks(bookObject) { 
 
-    const bookContainer = document.createElement('div');
-    bookContainer.classList.add('book_item');
-    bookContainer.classList.add('action');
+    const container = document.createElement('div');
+    container.classList.add('book_item');
+    container.classList.add('action');
 
     // Create h3 element for book title
     const textTitle = document.createElement('h2');
@@ -18,18 +18,37 @@ function makeBooks(bookObject) {
     textYear.innerText = `Tahun: ${bookObject.year}`;
 
     // Append title and author elements to the container
-    bookContainer.appendChild(textTitle);
-    bookContainer.appendChild(textAuthor);
-    bookContainer.appendChild(textYear);
+    container.appendChild(textTitle);
+    container.appendChild(textAuthor);
+    container.appendChild(textYear);
 
-    // Create action div for buttons
+    container.setAttribute('id', `books-${bookObject.id}`);
+
     const actionDiv = document.createElement('div');
     actionDiv.classList.add('action');
+  
 
-    // Create buttons add for actions
-    const completeButton = document.createElement('button');
-    completeButton.classList.add('green');
-    completeButton.innerText = bookObject.isComplete ? 'Belum selesai di Baca' : 'Selesai dibaca';
+    if (bookObject.isComplete===false) {
+         // Create action div for buttons
+        const actionDiv = document.createElement('div');
+        actionDiv.classList.add('action');
+        const uncompleteButton = document.createElement('button');
+        uncompleteButton.classList.add('green');
+        uncompleteButton.addEventListener('click', function(){
+            changeToComplete(bookObject.id);
+        });
+        uncompleteButton.innerText = 'Selesai di Baca';
+        container.appendChild(uncompleteButton);
+    } else {
+         // Create action div for buttons
+         const completeButton = document.createElement('button');
+         completeButton.classList.add('green');
+         completeButton.addEventListener('click', function(){
+            changeToUncomplete(bookObject.id);
+         });
+         completeButton.innerText = 'Belum selesai di Baca';
+         container.appendChild(completeButton);
+    }
 
     // Create buttons delete for actions
     const deleteButton = document.createElement('button');
@@ -37,16 +56,11 @@ function makeBooks(bookObject) {
     deleteButton.innerText = 'Hapus buku';
     deleteButton.addEventListener('click', function () {
         deleteBook(bookObject.id);
-    })
+    });
 
-    // Append buttons to the action div
-    actionDiv.appendChild(completeButton);
-    actionDiv.appendChild(deleteButton);
-
-    // Append the action div to the container
-    bookContainer.appendChild(actionDiv);
+    container.append(deleteButton);
     
     // return book container
-    return bookContainer;
+    return container;
 
 }
