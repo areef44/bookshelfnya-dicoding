@@ -33,7 +33,7 @@
       </div>
       <div class="input_inline">
         <label for="inputBookIsComplete">Selesai dibaca</label>
-        <input id="inputBookIsComplete" type="checkbox">
+        <input id="inputBookIsComplete" type="checkbox" onchange="updateButtonText()">
       </div>
       <button id="bookSubmit" type="submit">Masukkan Buku ke rak <span>Belum selesai dibaca</span></button>
     </form>
@@ -78,6 +78,7 @@
 <script src="js/makeBook.js"></script>
 <script src="js/deleteBook.js"></script>
 <script src="js/completeBook.js"></script>
+<script src="js/searchBook.js"></script>
 
 </body>
 </html>

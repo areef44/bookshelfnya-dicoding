@@ -24,6 +24,8 @@ function addBooks() {
 
     document.dispatchEvent(new Event(RENDER_EVENT));
 
+    saveData();
+
 }
 
 // function generateID
