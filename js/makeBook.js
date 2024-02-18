@@ -1,9 +1,7 @@
 // function make books
 function makeBooks(bookObject) { 
-
     const container = document.createElement('div');
     container.classList.add('book_item');
-    container.classList.add('action');
 
     // Create h3 element for book title
     const textTitle = document.createElement('h2');
@@ -24,33 +22,32 @@ function makeBooks(bookObject) {
 
     container.setAttribute('id', `books-${bookObject.id}`);
 
+    // Create action div for buttons
     const actionDiv = document.createElement('div');
     actionDiv.classList.add('action');
   
 
-    if (bookObject.isComplete===false) {
-         // Create action div for buttons
-        const actionDiv = document.createElement('div');
-        actionDiv.classList.add('action');
+    if (bookObject.isComplete === false) {
+         // Create green button for incomplete books
         const uncompleteButton = document.createElement('button');
         uncompleteButton.classList.add('green');
         uncompleteButton.addEventListener('click', function(){
             changeToComplete(bookObject.id);
         });
         uncompleteButton.innerText = 'Selesai di Baca';
-        container.appendChild(uncompleteButton);
+        actionDiv.appendChild(uncompleteButton);
     } else {
-         // Create action div for buttons
+         // Create green button for complete books
          const completeButton = document.createElement('button');
          completeButton.classList.add('green');
-         completeButton.addEventListener('click', function(){
+         completeButton.addEventListener('click', function() {
             changeToUncomplete(bookObject.id);
          });
          completeButton.innerText = 'Belum selesai di Baca';
-         container.appendChild(completeButton);
+         actionDiv.appendChild(completeButton);
     }
 
-    // Create buttons delete for actions
+     // Create red button for deleting books
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('red');
     deleteButton.innerText = 'Hapus buku';
@@ -58,7 +55,9 @@ function makeBooks(bookObject) {
         deleteBook(bookObject.id);
     });
 
-    container.append(deleteButton);
+    // Append action buttons to the container
+    actionDiv.appendChild(deleteButton);
+    container.appendChild(actionDiv);
     
     // return book container
     return container;
