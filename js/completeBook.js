@@ -8,6 +8,8 @@ function changeToComplete(bookId){
 
     document.dispatchEvent(new Event(RENDER_EVENT));
 
+    saveData();
+
 }
 
 function changeToUncomplete(bookId){
@@ -19,4 +21,6 @@ function changeToUncomplete(bookId){
     bookTarget.isComplete = false; 
 
     document.dispatchEvent(new Event(RENDER_EVENT));
+
+    saveData();
 }

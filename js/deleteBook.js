@@ -8,4 +8,6 @@ function deleteBook(bookId) {
 
     document.dispatchEvent(new Event(RENDER_EVENT));
 
+    saveData();
+
 }
