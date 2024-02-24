@@ -1,7 +1,8 @@
+const INCOMPLETE_BOOKS_LIST = "incompleteBookshelfList";
+const COMPLETE_BOOKS_LIST = "completeBookshelfList";
+
 // function make books
 function makeBooks(bookObject) { 
-    const container = document.createElement('div');
-    container.classList.add('book_item');
 
     // Create h3 element for book title
     const textTitle = document.createElement('h2');
@@ -14,52 +15,80 @@ function makeBooks(bookObject) {
     // Create h4 element for year 
     const textYear = document.createElement('p');
     textYear.innerText = `Tahun: ${bookObject.year}`;
-
+    
+    // Set the id attribute to the bookId
+    const textId = document.createElement('p');
+    textId.innerText = `Id: ${bookObject.id}`;
+    
     // Append title and author elements to the container
-    container.appendChild(textTitle);
-    container.appendChild(textAuthor);
-    container.appendChild(textYear);
+    const textContainer =  document.createElement("article");
+    textContainer.classList.add("book_item");
+    
+    textContainer.dataset.bookId = bookObject.id; 
+    // textContainer.id = `book_${bookObject.id}`;
 
-    container.setAttribute('id', `books-${bookObject.id}`);
+    textContainer.append(textTitle, textAuthor, textYear, textId);
 
-    // Create action div for buttons
-    const actionDiv = document.createElement('div');
-    actionDiv.classList.add('action');
-  
+    const buttonContainer =  document.createElement("div");
+    buttonContainer.classList.add("action");
+
 
     if (bookObject.isComplete === false) {
          // Create green button for incomplete books
-        const uncompleteButton = document.createElement('button');
-        uncompleteButton.classList.add('green');
-        uncompleteButton.addEventListener('click', function(){
-            changeToComplete(bookObject.id);
-        });
-        uncompleteButton.innerText = 'Selesai di Baca';
-        actionDiv.appendChild(uncompleteButton);
+         buttonContainer.append(createNotFinishedButton("Tandai Telah Dibaca",bookObject.id), createRedButton("Hapus",bookObject.id));
     } else {
-         // Create green button for complete books
-         const completeButton = document.createElement('button');
-         completeButton.classList.add('green');
-         completeButton.addEventListener('click', function() {
-            changeToUncomplete(bookObject.id);
-         });
-         completeButton.innerText = 'Belum selesai di Baca';
-         actionDiv.appendChild(completeButton);
+         buttonContainer.append(createFinishedButton("Tandai Belum Dibaca",bookObject.id), createRedButton("Hapus",bookObject.id));
     }
 
-     // Create red button for deleting books
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('red');
-    deleteButton.innerText = 'Hapus buku';
-    deleteButton.addEventListener('click', function () {
-        deleteBook(bookObject.id);
-    });
-
     // Append action buttons to the container
-    actionDiv.appendChild(deleteButton);
-    container.appendChild(actionDiv);
+    textContainer.append(buttonContainer);
     
     // return book container
-    return container;
+    return textContainer;
 
+}
+
+const createNotFinishedButton = (text,bookId) => {
+    const button = createButton("green", (e) => {
+        const message = confirm("Apakah kamu telah selesai membaca buku ini?");
+        if (message) {
+            changeToComplete(bookId);
+        }
+    }, text);
+
+    return button;
+}
+
+const createFinishedButton = (text,bookId) => {
+    const button = createButton("green", (e) => {
+        const message = confirm("Apakah kamu belum selesai membaca buku ini?");
+        if (message) {
+            changeToUncomplete(bookId);
+        }
+    }, text);
+
+    return button;
+}
+
+const createRedButton = (text,bookId) => {
+    const button = createButton("red", (e) => {
+        const message = confirm("Apakah kamu ingin menghapus buku ini?");
+        if (message) {
+            deleteBook(bookId);
+        }
+    }, text);
+
+    return button;
+}
+
+const createButton = (buttonTypeClass, eventListener, text) => {
+    const button = document.createElement("button");
+    button.innerText = text;
+    button.classList.add(buttonTypeClass);
+    
+    button.addEventListener("click", (e)=>{
+        eventListener(e);
+    });
+
+    return button;
 }

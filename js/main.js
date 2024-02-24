@@ -65,10 +65,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 });
 
-function findBookIndex(bookId) {
+function findBookIndex(BOOK_ID) {
     for (const index in books) {
-      if (books[index].id === bookId) {
-        console.log(index);
+      if (books[index].id === BOOK_ID) {
+        // console.log(index);
         return index;
       }
     }
@@ -122,7 +122,7 @@ function loadDataFromStorage() {
 
 // event untuk menampilkan books di console yang telah diinput kedalam memory
 document.addEventListener(RENDER_EVENT, function () {
-  console.log(books);
+  // console.log(books);
   // membersihkan kontainer yang akan diisi agar tidak terjadi duplikasi data
   const uncompletedBooksList = document.getElementById('incompleteBookshelfList');
   uncompletedBooksList.innerHTML = '';
