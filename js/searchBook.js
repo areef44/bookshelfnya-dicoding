@@ -1,22 +1,17 @@
 const searchBooks = () => {
-    // get title from book
-    const searchValue = document.getElementById("searchBookTitle").value;
+    const searchValue = document.getElementById("searchBookTitle").value.toLowerCase();
     const incompleteBooksList = document.getElementById('incompleteBookshelfList');
     const completeBooksList = document.getElementById('completeBookshelfList');
-    const previousBooks = document.querySelectorAll(".book_item");
 
+    // Clear the bookshelves
+    incompleteBooksList.innerHTML = "";
+    completeBooksList.innerHTML = "";
 
     if (searchValue) {
-        // make bookshelf empty
-        for (previousBook of previousBooks) {
-            previousBook.remove();
-        }
+        const filteredBooks = books.filter((bookObject) => bookObject.title.toLowerCase().includes(searchValue));
 
-    const filteredBooks = books.filter((bookObject)=>bookObject.title.toLowerCase().includes(searchValue.toLowerCase()));
-
-    for (bookObject of filteredBooks) {
-         const newBook = makeBooks(bookObject);
-         console.log(newBook);
+        for (bookObject of filteredBooks) {
+            const newBook = makeBooks(bookObject);
 
             if (bookObject.isComplete === true) {
                 completeBooksList.append(newBook);
@@ -24,12 +19,18 @@ const searchBooks = () => {
                 incompleteBooksList.append(newBook);
             }
         }
+    } else {
+        // If search is empty, display all books
+        for (bookObject of books) {
+            const newBook = makeBooks(bookObject);
+
+            if (bookObject.isComplete === true) {
+                completeBooksList.append(newBook);
             } else {
-                for (previousBook of previousBooks) {
-                    previousBook.remove();
+                incompleteBooksList.append(newBook);
             }
-        loadDataFromStorage();
-            }
-    
+        }
+    }
+
     return books;
 }
