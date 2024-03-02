@@ -170,4 +170,7 @@ main {
     color: white;
 }
 
-
+.book_shelf > .book_list > .book_item > .action > .yellow {
+    background-color: darkgoldenrod;
+    color: white;
+}

@@ -11,7 +11,7 @@ function isStorageExist() /* boolean */ {
 }
 
 document.addEventListener(SAVED_EVENT, function () {
-  console.log(localStorage.getItem(STORAGE_KEY));
+  // console.log(localStorage.getItem(STORAGE_KEY));
 });
 
 // array kosong untuk menampung data books
@@ -65,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
 });
 
-function findBookIndex(BOOK_ID) {
+function findBookIndex(bookId) {
     for (const index in books) {
-      if (books[index].id === BOOK_ID) {
+      if (books[index].id === bookId) {
         // console.log(index);
         return index;
       }
@@ -82,7 +82,6 @@ function findBook(bookId) {
         return bookItem;
       }
     }
-    return null;
 }
 
 // Ganti Text ketika checkbox di Click
@@ -142,3 +141,8 @@ document.addEventListener(RENDER_EVENT, function () {
         completedBooksList.append(bookElement);
   }
 });
+
+function getData() {
+  console.log(STORAGE_KEY);
+  return JSON.parse(localStorage.getItem(STORAGE_KEY));
+}

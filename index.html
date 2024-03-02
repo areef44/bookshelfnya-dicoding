@@ -35,7 +35,8 @@
         <label for="inputBookIsComplete">Selesai dibaca</label>
         <input id="inputBookIsComplete" type="checkbox" onchange="updateButtonText()">
       </div>
-      <button id="bookSubmit" type="submit">Masukkan Buku ke rak <span>Belum selesai dibaca</span></button>
+      <button id="bookSubmit" type="submit" style="display: block;">Masukkan Buku ke rak <span>Belum selesai dibaca</span></button>
+      <button id="bookUpdate" type="button" style="display: none;"><span>Perbaharui Data Buku</span></button>
     </form>
   </section>
   
@@ -73,6 +74,7 @@
 <script src="js/deleteBook.js"></script>
 <script src="js/completeBook.js"></script>
 <script src="js/searchBook.js"></script>
+<script src="js/editBook.js"></script>
 
 </body>
 </html>
